@@ -3,21 +3,17 @@ from line import Line
 
 class Cell():
     def __init__(self,
-                 _x1,_x2,_y1,_y2,
-                 _win,
-                 has_left_wall = True,
-                 has_right_wall = True,
-                 has_top_wall = True,
-                 has_bottom_wall = True):
+                 _win
+                 ):
         
-        self.has_left_wall = has_left_wall
-        self.has_right_wall = has_right_wall
-        self.has_top_wall = has_top_wall
-        self.has_bottom_wall = has_bottom_wall
-        self._x1 = _x1
-        self._x2 = _x2
-        self._y1 = _y1
-        self._y2 = _y2
+        self.has_left_wall = True
+        self.has_right_wall = True
+        self.has_top_wall = True
+        self.has_bottom_wall = True
+        self._x1 = None
+        self._x2 = None
+        self._y1 = None
+        self._y2 = None
         self._win = _win
     
     def draw(self):
@@ -50,11 +46,6 @@ class Cell():
         init_cell_center_y = (self._y1 + self._y2) // 2
         to_cell_center_x = (to_cell._x2 + to_cell._x1) // 2
         to_cell_center_y = (to_cell._y1 + to_cell._y2) // 2
-        
-        print(init_cell_center_x)
-        print(init_cell_center_y)
-        print(to_cell_center_x)
-        print(to_cell_center_y)
 
         init_cell_center_point = Point(init_cell_center_x,init_cell_center_y)
         to_cell_center_point = Point(to_cell_center_x,to_cell_center_y)

@@ -1,22 +1,14 @@
 from window import Window
-from point import Point
-from line import Line
-from cell import Cell
+from maze import Maze
 
 
 def main():
-    win = Window(800,600)
+    win = Window(800,800)
     
-    cell1 = Cell(10,70,70,10,win,True,True,False,True)
-    cell1.draw()
+    maze = Maze(5,5,10,10,20,20,win)
 
-    cell2 = Cell(10,70,130,70,win,True,True,True,False)
-    cell2.draw()
-
-    cell1.draw_move(cell2,True)
-
+    maze._create_cells()
     
-
     win.wait_for_close()
 
     
