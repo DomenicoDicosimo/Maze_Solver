@@ -30,6 +30,9 @@ class Maze():
                 self._draw_cell(i,j)
     
     def _draw_cell(self,i,j):
+        if self.win is None:
+            return
+        
         top_left_x = i * self.cell_size_x + self.x1
         top_left_y = j * self.cell_size_y + self.y1
         bottom_right_x = (i+1) * self.cell_size_x + self.x1
@@ -46,6 +49,8 @@ class Maze():
         self._animate()
     
     def _animate(self):
+        if self.win is None:
+            return
         self.win.redraw()
         time.sleep(0.05)
 
