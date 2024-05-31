@@ -42,4 +42,22 @@ class Cell():
             bottom_line = Line(bottom_left_point,bottom_right_point)
             self._win.draw_line(bottom_line,"Blue")
 
+    def draw_move(self, to_cell, undo=False):
+        color = "grey"
+        if not undo:
+            color = "red"
+        init_cell_center_x = (self._x2 + self._x1) // 2
+        init_cell_center_y = (self._y1 + self._y2) // 2
+        to_cell_center_x = (to_cell._x2 + to_cell._x1) // 2
+        to_cell_center_y = (to_cell._y1 + to_cell._y2) // 2
+        
+        print(init_cell_center_x)
+        print(init_cell_center_y)
+        print(to_cell_center_x)
+        print(to_cell_center_y)
 
+        init_cell_center_point = Point(init_cell_center_x,init_cell_center_y)
+        to_cell_center_point = Point(to_cell_center_x,to_cell_center_y)
+
+        center_line = Line(init_cell_center_point,to_cell_center_point)
+        self._win.draw_line(center_line,color)
