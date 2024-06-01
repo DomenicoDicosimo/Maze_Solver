@@ -69,23 +69,50 @@ class Maze():
     def _break_walls_r(self,i,j):
         current_cell = self._cells[i][j]
         current_cell.visited = True
-        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        directions = [(-1, 0, 'left'), (1, 0,'right'), (0, -1,'up'), (0, 1,'down')]
 
-        while True is True:
+        while True:
             valid_moves = []
-            for di,dj in directions:
+            for di,dj,direction in directions:
                 new_i = i + di
                 new_j = j + dj
-            if 0 <= new_i < self.num_rows - 1 and 0 <= new_j < self.num_cols - 1:
-                if not self._cells[new_i][new_j].visited:
-                    valid_moves.append((new_i,new_j))
+                if 0 <= new_i < self.num_rows and 0 <= new_j < self.num_cols:
+                    if not self._cells[new_i][new_j].visited:
+                        valid_moves.append((new_i,new_j,direction))
             
             if not valid_moves:
-                self._draw_cell[i][j]
+                self._draw_cell(i,j)
                 return
+            # Debugging: Print the current cell and chosen move
+            print(f"Current Cell: ({i}, {j}), Valid Moves: {valid_moves}")
+
             
             index = random.randrange(len(valid_moves))
             chosen_move =valid_moves[index]
-            new_i,new_j = chosen_move
+            new_i,new_j,chosen_direction = chosen_move
             
+            # Debugging: Print the chosen direction
+            print(f"Chosen Move: ({new_i}, {new_j}), Direction: {chosen_direction}")
+
+            if chosen_direction == 'up':
+                self._cells[i][j].has_top_wall = False
+                self._cells[new_i][new_j].has_bottom_wall = False
+            elif chosen_direction == 'down':
+                self._cells[i][j].has_bottom_wall = False
+                self._cells[new_i][new_j].has_top_wall = False
+            elif chosen_direction == 'left':
+                self._cells[i][j].has_left_wall = False
+                self._cells[new_i][new_j].has_right_wall = False
+            elif chosen_direction == 'right':
+                self._cells[i][j].has_right_wall = False
+                self._cells[new_i][new_j].has_left_wall = False
             
+            self._draw_cell(i,j)
+            self._draw_cell(new_i,new_j)
+            
+            self._break_walls_r(new_i,new_j)
+
+    def _reset_cells_visited(self):
+        for i in range(self.num_cols):
+            for j in range(self.num_rows):
+                self._cells[i][j].visited = False

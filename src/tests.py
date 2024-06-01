@@ -27,6 +27,18 @@ class Tests(unittest.TestCase):
             len(m1._cells[0]),
             num_rows,
         )
+    
+    def test_maze_test_visited(self):
+        visit = False
+        m1 = Maze(0, 0, 10, 10, 10, 10,None)
+        m1._create_cells()
+        m1._break_entrance_and_exit()
+        m1._break_walls_r(0,0)
+        m1._reset_cells_visited()
+        self.assertEqual(
+            m1._cells[0][0].visited,
+            visit,
+        )
 
 if __name__ == "__main__":
     unittest.main()
